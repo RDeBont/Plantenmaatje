@@ -1,10 +1,11 @@
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { AppState, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { colors } from '../constants/colors';
 import { texts } from '../constants/texts';
 import { Plant } from '../models/Plant';
+import { bewaarPlant, laadPlant } from '../opslag/opslag';
 
 const foto = 'https://images.unsplash.com/photo-1521334884684-d80222895322?w=800';
 
@@ -15,6 +16,32 @@ export default function HomeScreen() {
   const [dagen, setDagen] = useState('');
   const [plant, setPlant] = useState<Plant | null>(null);
   const [fout, setFout] = useState('');
+
+  // Haalt de bewaarde plant terug uit de opslag.
+  async function herstelPlant() {
+    const bewaard = await laadPlant();
+    if (bewaard === null) {
+      return;
+    }
+    setNaam(bewaard.naam);
+    setDagen(String(bewaard.dagen));
+    setPlant(new Plant(bewaard.naam, bewaard.dagen));
+    console.log('Plant hersteld uit opslag:', bewaard.naam);
+  }
+
+  // Bij het openen van de app en bij terugkomst uit de achtergrond.
+  useEffect(() => {
+    herstelPlant();
+
+    const abonnement = AppState.addEventListener('change', (status) => {
+      console.log('App-status:', status);
+      if (status === 'active') {
+        herstelPlant();
+      }
+    });
+
+    return () => abonnement.remove();
+  }, []);
 
   function opslaan() {
     console.log('Knop opslaan ingedrukt:', naam, dagen);
@@ -32,7 +59,7 @@ export default function HomeScreen() {
 
     setFout('');
     setPlant(new Plant(naam.trim(), aantal));
-    console.log('Plant opgeslagen:', naam);
+    bewaarPlant(naam.trim(), aantal);
   }
 
   function naarLichtmeting() {
