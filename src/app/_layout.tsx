@@ -16,6 +16,7 @@ export default function RootLayout() {
         }}>
         <Stack.Screen name="index" options={{ title: texts.appNaam }} />
         <Stack.Screen name="lichtmeting" options={{ title: texts.lichtmetingTitel }} />
+        <Stack.Screen name="sensoren" options={{ title: texts.sensorenTitel }} />
       </Stack>
     </>
   );

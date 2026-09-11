@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { colors } from '../constants/colors';
 import { Accelerometer, LightSensor } from 'expo-sensors';
@@ -8,11 +8,13 @@ import { Plant } from '../models/Plant';
 import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
 
+
 // Vaste marker: een tuincentrum in de buurt.
 const tuincentrum = { latitude: 51.516219, longitude: 4.276987 };
 const infoUrl = 'https://www.intratuinhalsteren.nl/';
 
 export default function LichtmetingScreen() {
+    const router = useRouter();
     const params = useLocalSearchParams();
     const plant = new Plant(String(params.naam), Number(params.dagen));
 
@@ -139,6 +141,9 @@ export default function LichtmetingScreen() {
             <Pressable style={styles.knop} onPress={openWebsite}>
                 <Text style={styles.knopTekst}>{texts.meerInfoKnop}</Text>
             </Pressable>
+            <Pressable style={styles.knop2} onPress={() => router.push('/sensoren')}>
+                <Text style={styles.knop2Tekst}>{texts.sensorenKnop}</Text>
+            </Pressable>
         </ScrollView>
     );
 }
@@ -174,4 +179,12 @@ const styles = StyleSheet.create({
         marginTop: 16,
     },
     knopTekst: { color: colors.accentTekst, fontSize: 16, fontWeight: '700' },
+    knop2: {
+        backgroundColor: colors.kaart,
+        borderColor: colors.rand,
+        borderRadius: 12,
+        padding: 16,
+        alignItems: 'center',
+    },
+    knop2Tekst: { color: colors.tekst, fontSize: 16, fontWeight: '700' },
 });

@@ -29,4 +29,9 @@ export const texts = {
     meerInfoKnop: 'Meer over deze plant',
     geenLichtsensor: 'Deze telefoon heeft geen lichtsensor.',
     adviesUitleg: 'Dit advies hoort bij de lichtwaarde die nu gemeten wordt.',
+    sensorenKnop: 'Beschikbare sensoren',
+    sensorenTitel: 'Sensoren',
+    sensorenUitleg: 'Dit zijn de sensoren die deze telefoon heeft.',
+    beschikbaar: 'Beschikbaar',
+    nietBeschikbaar: 'Niet beschikbaar',
 };
