@@ -110,7 +110,7 @@ export default function HomeScreen() {
           <Text style={styles.knopWisTekst}>{texts.wisKnop}</Text>
         </Pressable>
 
-        {fout !== '' && <Text style={styles.fout}>{fout}</Text>}
+        <Text style={styles.fout}>{fout}</Text>
 
         <Pressable style={styles.knop} onPress={opslaan}>
           <Text style={styles.knopTekst}>{texts.opslaanKnop}</Text>
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     color: colors.tekst,
     fontSize: 16,
   },
-  fout: { color: colors.fout, fontSize: 14 },
+  fout: { color: colors.fout, fontSize: 14, minHeight: 20},
   knop: {
     backgroundColor: colors.accent,
     borderRadius: 12,
