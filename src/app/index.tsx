@@ -5,7 +5,7 @@ import { AppState, Pressable, ScrollView, StyleSheet, Text, TextInput, View } fr
 import { colors } from '../constants/colors';
 import { texts } from '../constants/texts';
 import { Plant } from '../models/Plant';
-import { bewaarPlant, laadPlant } from '../opslag/opslag';
+import { bewaarPlant, laadPlant, wisPlant } from '../opslag/opslag';
 
 const foto = 'https://images.unsplash.com/photo-1521334884684-d80222895322?w=800';
 
@@ -62,6 +62,15 @@ export default function HomeScreen() {
     bewaarPlant(naam.trim(), aantal);
   }
 
+  function wissen() {
+    console.log('Knop wissen ingedrukt');
+    setNaam('');
+    setDagen('');
+    setPlant(null);
+    setFout('');
+    wisPlant();
+  }
+
   function naarLichtmeting() {
     if (plant === null) {
       setFout(texts.foutGeenPlant);
@@ -96,6 +105,10 @@ export default function HomeScreen() {
           placeholderTextColor={colors.tekstZacht}
           keyboardType="numeric"
         />
+
+        <Pressable style={styles.knopWis} onPress={wissen}>
+          <Text style={styles.knopWisTekst}>{texts.wisKnop}</Text>
+        </Pressable>
 
         {fout !== '' && <Text style={styles.fout}>{fout}</Text>}
 
@@ -167,4 +180,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   knop2Tekst: { color: colors.tekst, fontSize: 16, fontWeight: '700' },
+  knopWis: {
+    borderColor: colors.rand,
+    borderWidth: 1,
+    borderRadius: 12,
+    padding: 12,
+    alignItems: 'center',
+    marginTop: 4,
+  },
+  knopWisTekst: { color: colors.tekstZacht, fontSize: 14 },
 });

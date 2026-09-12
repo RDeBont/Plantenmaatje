@@ -14,3 +14,8 @@ export async function laadPlant() {
   }
   return JSON.parse(waarde) as { naam: string; dagen: number };
 }
+
+export async function wisPlant() {
+  await AsyncStorage.removeItem(sleutel);
+  console.log('Plant gewist uit opslag');
+}

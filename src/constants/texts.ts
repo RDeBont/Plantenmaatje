@@ -34,4 +34,5 @@ export const texts = {
     sensorenUitleg: 'Dit zijn de sensoren die deze telefoon heeft.',
     beschikbaar: 'Beschikbaar',
     nietBeschikbaar: 'Niet beschikbaar',
+    wisKnop: 'Plant wissen',
 };
